@@ -45,9 +45,13 @@ var binarySearchTreeMethods = {
       }
     };
 
-    insertValue(this, newTree);
+    insertValue(baseTree, newTree);
     baseTree.maxDepth = (baseTree.maxDepth > depthOfCurrentInsertion) ? baseTree.maxDepth : depthOfCurrentInsertion;
     baseTree.minDepth = (baseTree.depthFullness[depthOfCurrentInsertion] === 0) ? depthOfCurrentInsertion : baseTree.minDepth;
+
+    if(baseTree.maxDepth > baseTree.minDepth * 2) {
+      baseTree.rebalanceTree();
+    }
   },
 
   contains: function(value) {
