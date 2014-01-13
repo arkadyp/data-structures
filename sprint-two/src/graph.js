@@ -1,6 +1,6 @@
 var Node = function(value){
   this.value = value;
-  this.edges = [];
+  this.edges = {};
 };
 
 var Graph = function(){
@@ -50,8 +50,8 @@ Graph.prototype.addEdge = function(target1, target2){
   var node2 = this.nodes[node2Name];
   
   if(node1 && node2) {
-    node1.edges.push(node2);
-    node2.edges.push(node1);
+    node1.edges[node2Name] = node2;
+    node2.edges[node1Name] = node1;
   }
 };
 
