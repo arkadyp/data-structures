@@ -1,4 +1,4 @@
-var Node = function(value) {
+var Node = function(value){
   this.value = value;
   this.edges = [];
 };
@@ -10,15 +10,15 @@ var Graph = function(){
 
 Graph.prototype.addNode = function(newNode, toNode){
   var node = new Node(newNode);
-  var nodeName = JSON.stringify(newNode);
+  var nodeName = this.returnName(newNode);
   this.nodes[nodeName] = node;
   
   if(!(toNode === undefined)) { //if toNode is passed in, connect it to new node
-    var toNodeName = JSON.stringify(toNode);
+    var toNodeName = this.returnName(toNode);
     this.addEdge(nodeName, toNodeName);
   } else if(this.nodeCount === 1) {  //automatically create an edge if there is only one node in graph
     _.each(this.nodes, function(firstNode){ //only one node is in graph at this point
-      this.addEdge(nodeName, JSON.stringify(firstNode.value));
+      this.addEdge(nodeName, this.returnName(firstNode.value));
     });
   }
 
@@ -26,11 +26,11 @@ Graph.prototype.addNode = function(newNode, toNode){
 };
 
 Graph.prototype.contains = function(target){
-  return (JSON.stringify(target) in this.nodes);
+  return (this.returnName(target) in this.nodes);
 };
 
 Graph.prototype.removeNode = function(target){
-  var nodeName = JSON.stringify(target);
+  var nodeName = this.returnName(target);
   if(nodeName in this.nodes) {
     delete this.nodes[nodeName];
   }
@@ -56,4 +56,8 @@ Graph.prototype.addEdge = function(target1, target2){
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
+};
+
+Graph.prototype.returnName = function(name){
+  return JSON.stringify(name);
 };
