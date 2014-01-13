@@ -60,7 +60,14 @@ Graph.prototype.addEdge = function(target1, target2){
   }
 };
 
-Graph.prototype.removeEdge = function(fromNode, toNode){
+Graph.prototype.removeEdge = function(target1, target2){
+  var node1Name = this.getName(target1);
+  var node2Name = this.getName(target2);
+  var node1 = this.nodes[node1Name];
+  var node2 = this.nodes[node2Name];
+
+  delete node1.edges[node2Name];
+  delete node2.edges[node1Name];
 };
 
 Graph.prototype.getName = function(name){
