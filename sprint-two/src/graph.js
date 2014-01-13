@@ -15,8 +15,7 @@ Graph.prototype.addNode = function(newNode, toNode){
   this.nodeCount++;
 
   if(!(toNode === undefined)) { //if toNode is passed in, connect it to new node
-    var toNodeName = this.getName(toNode);
-    this.addEdge(nodeName, toNodeName);
+    this.addEdge(newNode, toNode);
   } else if(this.nodeCount === 2) {  //automatically create an edge if there is only one node in graph
     var graph = this;
     _.each(this.nodes, function(firstNode){ //only two nodes at this point
