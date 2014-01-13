@@ -11,7 +11,6 @@ var Graph = function(){
 Graph.prototype.addNode = function(newNode, toNode){
   var node = new Node(newNode);
   var nodeName = this.getName(newNode);
-  this.nodes[nodeName] = node;
   
   if(!(toNode === undefined)) { //if toNode is passed in, connect it to new node
     var toNodeName = this.getName(toNode);
@@ -19,10 +18,10 @@ Graph.prototype.addNode = function(newNode, toNode){
   } else if(this.nodeCount === 1) {  //automatically create an edge if there is only one node in graph
     var graph = this;
     _.each(this.nodes, function(firstNode){ //only one node is in graph at this point
-      grapha.addEdge(nodeName, graph.getName(firstNode.value));
+      graph.addEdge(node.value, firstNode.value);
     });
   }
-
+  this.nodes[nodeName] = node;
   this.nodeCount++;
 };
 
@@ -37,10 +36,15 @@ Graph.prototype.removeNode = function(target){
   }
 };
 
-Graph.prototype.getEdge = function(fromNode, toNode){
-  var node1 = this.nodes[this.getName(fromNode)];
-  var node2 = this.nodes[this.getName(toNode)];
+Graph.prototype.getEdge = function(target1, target2){
+  var node1Name = this.getName(target1);
+  var node1 = this.nodes[node1Name];
+  var node2 = this.nodes[this.getName(target2)];
   var edgeFound = false;
+  if(node1 && node2) {
+    edgeFound = (node1Name in node2.edges);
+  }
+  return edgeFound;
 };
 
 Graph.prototype.addEdge = function(target1, target2){
