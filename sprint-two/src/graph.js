@@ -68,6 +68,13 @@ Graph.prototype.removeEdge = function(target1, target2){
 
   delete node1.edges[node2Name];
   delete node2.edges[node1Name];
+
+  if(Object.keys(node1.edges).length === 0) {
+    delete this.nodes[node1Name];
+  }
+  if(Object.keys(node2.edges).length === 0) {
+    delete this.nodes[node2Name];
+  }
 };
 
 Graph.prototype.getName = function(name){
