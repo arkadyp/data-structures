@@ -40,15 +40,11 @@ Graph.prototype.getEdge = function(fromNode, toNode){
 };
 
 Graph.prototype.addEdge = function(target1, target2){
-  var node1, node2;
-  _.each(this.nodes, function(node) {
-    if(node.value === target1) {
-      node1 = new Node(target1);
-    } else if(node.value === target2) {
-      node2 = new Node(target2);
-    }
-  });
-
+  var node1Name = this.returnName(target1);
+  var node2Name = this.returnName(target2);
+  var node1 = this.nodes[node1Name];
+  var node2 = this.nodes[node2Name];
+  
   if(node1 && node2) {
     node1.edges.push(node2);
     node2.edges.push(node1);
