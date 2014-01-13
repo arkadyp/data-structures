@@ -37,7 +37,17 @@ Graph.prototype.removeNode = function(target){
 Graph.prototype.getEdge = function(fromNode, toNode){
 };
 
-Graph.prototype.addEdge = function(fromNode, toNode){
+Graph.prototype.addEdge = function(target1, target2){
+  _.each(this.nodes, function(node) {
+    if(node.value === target1) {
+      var node1 = new Node(target1);
+    } else if(node.value === target2) {
+      var node2 = new Node(target2);
+    }
+  });
+
+  node1.edges.push(node2);
+  node2.edges.push(node1);
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
