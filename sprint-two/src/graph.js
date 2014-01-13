@@ -1,10 +1,21 @@
+var Node = function(value) {
+  this.value = value;
+  this.edges = [];
+};
+
 var Graph = function(){
+  this.nodes = [];
 };
 
 Graph.prototype.addNode = function(newNode, toNode){
+  var node = new Node(newNode);
+  if(!(toNode === undefined)) {
+    node.edges.push(toNode);
+  }
+  this.nodes.push(node);
 };
 
-Graph.prototype.contains = function(node){
+Graph.prototype.contains = function(target){
 };
 
 Graph.prototype.removeNode = function(node){
