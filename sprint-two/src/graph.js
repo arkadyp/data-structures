@@ -11,18 +11,20 @@ var Graph = function(){
 Graph.prototype.addNode = function(newNode, toNode){
   var node = new Node(newNode);
   var nodeName = this.getName(newNode);
-  
+  this.nodes[nodeName] = node;
+  this.nodeCount++;
+
   if(!(toNode === undefined)) { //if toNode is passed in, connect it to new node
     var toNodeName = this.getName(toNode);
     this.addEdge(nodeName, toNodeName);
-  } else if(this.nodeCount === 1) {  //automatically create an edge if there is only one node in graph
+  } else if(this.nodeCount === 2) {  //automatically create an edge if there is only one node in graph
     var graph = this;
-    _.each(this.nodes, function(firstNode){ //only one node is in graph at this point
-      graph.addEdge(node.value, firstNode.value);
+    _.each(this.nodes, function(firstNode){ //only two nodes at this point
+      if(firstNode.value !== node.value) { //only call addEdge on firstNode/newNode
+        graph.addEdge(node.value, firstNode.value);
+      }
     });
   }
-  this.nodes[nodeName] = node;
-  this.nodeCount++;
 };
 
 Graph.prototype.contains = function(target){
