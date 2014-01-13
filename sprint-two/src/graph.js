@@ -17,8 +17,9 @@ Graph.prototype.addNode = function(newNode, toNode){
     var toNodeName = this.returnName(toNode);
     this.addEdge(nodeName, toNodeName);
   } else if(this.nodeCount === 1) {  //automatically create an edge if there is only one node in graph
+    var graph = this;
     _.each(this.nodes, function(firstNode){ //only one node is in graph at this point
-      this.addEdge(nodeName, this.returnName(firstNode.value));
+      graph.addEdge(nodeName, graph.returnName(firstNode.value));
     });
   }
 
