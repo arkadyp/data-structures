@@ -5,14 +5,20 @@ var Node = function(value) {
 
 var Graph = function(){
   this.nodes = [];
+  this.nodeCount = 0;
 };
 
 Graph.prototype.addNode = function(newNode, toNode){
   var node = new Node(newNode);
-  if(!(toNode === undefined)) {
-    node.edges.push(toNode);
-  }
   this.nodes.push(node);
+  
+  if(!(toNode === undefined)) { //if toNode is passed in, connect it to new node
+    this.addEdge(newNode, toNode);
+  } else if(this.nodeCount === 1) {  //automatically create an edge if there is only one node in graph
+    this.addEdge(node.value, this.nodes[0].value);
+  }
+
+  this.nodeCount++;
 };
 
 Graph.prototype.contains = function(target){
@@ -38,16 +44,19 @@ Graph.prototype.getEdge = function(fromNode, toNode){
 };
 
 Graph.prototype.addEdge = function(target1, target2){
+  var node1, node2;
   _.each(this.nodes, function(node) {
     if(node.value === target1) {
-      var node1 = new Node(target1);
+      node1 = new Node(target1);
     } else if(node.value === target2) {
-      var node2 = new Node(target2);
+      node2 = new Node(target2);
     }
   });
 
-  node1.edges.push(node2);
-  node2.edges.push(node1);
+  if(node1 && node2) {
+    node1.edges.push(node2);
+    node2.edges.push(node1);
+  }
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
