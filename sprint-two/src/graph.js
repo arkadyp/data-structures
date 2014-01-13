@@ -38,6 +38,9 @@ Graph.prototype.removeNode = function(target){
 };
 
 Graph.prototype.getEdge = function(fromNode, toNode){
+  var node1 = this.nodes[this.getName(fromNode)];
+  var node2 = this.nodes[this.getName(toNode)];
+  var edgeFound = false;
 };
 
 Graph.prototype.addEdge = function(target1, target2){
