@@ -4,18 +4,22 @@ var Node = function(value) {
 };
 
 var Graph = function(){
-  this.nodes = [];
+  this.nodes = {};
   this.nodeCount = 0;
 };
 
 Graph.prototype.addNode = function(newNode, toNode){
   var node = new Node(newNode);
-  this.nodes.push(node);
+  var nodeName = JSON.stringify(newNode);
+  this.nodes[nodeName] = node;
   
   if(!(toNode === undefined)) { //if toNode is passed in, connect it to new node
-    this.addEdge(newNode, toNode);
+    var toNodeName = JSON.stringify(toNode);
+    this.addEdge(nodeName, toNodeName);
   } else if(this.nodeCount === 1) {  //automatically create an edge if there is only one node in graph
-    this.addEdge(node.value, this.nodes[0].value);
+    _.each(this.nodes, function(firstNode){ //only one node is in graph at this point
+      this.addEdge(nodeName, JSON.stringify(firstNode.value));
+    });
   }
 
   this.nodeCount++;
