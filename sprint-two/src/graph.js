@@ -30,11 +30,9 @@ Graph.prototype.contains = function(target){
 };
 
 Graph.prototype.removeNode = function(target){
-  for(var i = 0; i < this.nodes.length; i++) {
-    if(this.nodes[i].value === target) {
-      this.nodes.splice(i, 1);
-      break;
-    }
+  var nodeName = JSON.stringify(target);
+  if(nodeName in this.nodes) {
+    delete this.nodes[nodeName];
   }
 };
 
