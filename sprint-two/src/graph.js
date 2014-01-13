@@ -26,13 +26,7 @@ Graph.prototype.addNode = function(newNode, toNode){
 };
 
 Graph.prototype.contains = function(target){
-  var targetFound = false;
-  _.each(this.nodes, function(node) {
-    if(node.value === target) {
-      targetFound = true;
-    }
-  });
-  return targetFound;
+  return (JSON.stringify(target) in this.nodes);
 };
 
 Graph.prototype.removeNode = function(target){
